@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { confirmPasswordValidator } from '../../../core/utils/confirmPasswordValidator';
+import { AuthService } from '../../../core/service/auth/auth.service';
 
 @Component({
   selector: 'app-auth-form',
@@ -8,6 +9,9 @@ import { confirmPasswordValidator } from '../../../core/utils/confirmPasswordVal
   styleUrl: './auth-form.component.scss'
 })
 export class AuthFormComponent {
+
+  constructor(private authService : AuthService){}
+
   @Input() formtype !: string;
   signUpForm !: FormGroup;
   loginForm !: FormGroup;
@@ -31,7 +35,7 @@ export class AuthFormComponent {
     this.signUpForm = new FormGroup({
       name: new FormControl('', [Validators.required , Validators.pattern('^[A-Za-z]{3,10}$')]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', Validators.required),
+      password: new FormControl('', [Validators.required,  Validators.pattern('^(?=.*[a-z])(?=.*\\d)[a-z\\d]{8}$')]),
       confirmPassword: new FormControl('', Validators.required)
     },
       {
@@ -42,6 +46,16 @@ export class AuthFormComponent {
 
   onLogin() { }
 
-  onSignUp() { }
+  onSignUp() { 
+    this.authService.signUp(this.signUpForm.value).subscribe({
+      next : (res)=>{
+        console.log(res)
+      },
+      error : (err) =>{
+        console.log
+      }
+    
+    })
+  }
 
 }

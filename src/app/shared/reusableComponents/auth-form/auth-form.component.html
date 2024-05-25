@@ -1,0 +1,75 @@
+<mat-card class="login-container">
+    <div class="title">
+        <h1>{{formtype | titlecase}}</h1>
+    </div>
+
+    <!-- split the form based on the type -->
+
+    <!-- login-form-template -->
+
+    <form *ngIf="(formtype === 'login')" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+        <div class="login-form">
+            <input type="email" formControlName="email" placeholder="Email" class="input-field">
+            <div class="error" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+                <div *ngIf="loginForm.get('email')?.errors?.['required']">Email is required.</div>
+                <div *ngIf="loginForm.get('email')?.errors?.['email']">Invalid email format.</div>
+            </div>
+
+
+            <input type="password" formControlName="password" placeholder="Password" class="input-field">
+            <div class="error" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+                <div *ngIf="loginForm.get('password')?.errors?.['required']">Password is required.</div>
+            </div>
+
+
+            <div class="button-container">
+                <button type="submit" [disabled]="loginForm.invalid" class="login-button">Login</button>
+                <p class="page-text" routerLink="/signup">dont have an account ? <span>Create</span>.</p>
+            </div>
+        </div>
+    </form>
+
+    <!-- /login-form-template -->
+
+    <!-- signup-form-template  -->
+
+    <form *ngIf="(formtype === 'signup')" [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
+        <div class="login-form">
+            <input type="text" formControlName="name" placeholder="Name" class="input-field">
+            <div class="error" *ngIf="signUpForm.get('name')?.invalid && signUpForm.get('name')?.touched">
+                <div *ngIf="signUpForm.get('name')?.errors?.['required']">Name is required.</div>
+                <div *ngIf="signUpForm.get('name')?.errors?.['pattern']">Name must be 3 to 10 letters long</div>
+            </div>
+
+            <input type="email" formControlName="email" placeholder="Email" class="input-field">
+            <div class="error" *ngIf="signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched">
+                <div *ngIf="signUpForm.get('email')?.errors?.['required']">Email is required.</div>
+                <div *ngIf="signUpForm.get('email')?.errors?.['email']">Invalid email format.</div>
+            </div>
+
+            <input type="password" formControlName="password" placeholder="Password" class="input-field">
+            <div class="error" *ngIf="signUpForm.get('password')?.invalid && signUpForm.get('password')?.touched">
+                <div *ngIf="signUpForm.get('password')?.errors?.['required']">Password is required.</div>
+            </div>
+
+            <input type="password" formControlName="confirmPassword" placeholder="Confirm Password" class="input-field">
+            <div class="error"
+                *ngIf="signUpForm?.errors?.['PasswordNoMatch'] && signUpForm.get('confirmPassword')?.touched">
+                <div *ngIf="signUpForm.get('confirmPassword')?.errors?.['required'] else doesNot">Password is required.
+                </div>
+                <ng-template #doesNot>
+                    <div>Password does not match.</div>
+                </ng-template>
+            </div>
+
+            <div class="button-container">
+                <button type="submit" [disabled]="signUpForm.invalid" class="register-button">Register</button>
+                <p class="page-text" routerLink="/login">already have an account ? <span>Login</span>.</p>
+            </div>
+        </div>
+    </form>
+
+    <!-- /signup-form-template  -->
+
+
+</mat-card>

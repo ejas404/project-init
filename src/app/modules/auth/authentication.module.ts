@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { NavbarComponent } from '../../shared/reusableComponents/navbar/navbar.component';
+import { LoginComponent } from '../../pages/login/login.component';
+import { SignupComponent } from '../../pages/signup/signup.component';
 
 
 @NgModule({
     declarations: [
-        NavbarComponent
+        LoginComponent,
+        SignupComponent
     ],
     imports: [
         CommonModule,
@@ -17,7 +19,8 @@ import { NavbarComponent } from '../../shared/reusableComponents/navbar/navbar.c
         RouterModule
     ],
     exports : [
-        NavbarComponent
+        LoginComponent,
+        SignupComponent
     ]
 })
-export class CustomModule { }
+export class AuthenticationModule { }

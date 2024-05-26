@@ -1,3 +1,50 @@
 <section>
-    <app-auth-form [formtype]="'signup'" ></app-auth-form>
+    <mat-card class="login-container">
+        <div class="title">
+            <h1>SignUp</h1>
+        </div>
+    
+        <!-- signup-form-template  -->
+    
+        <form [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
+            <div class="login-form">
+                <input type="text" formControlName="name" placeholder="Name" class="input-field">
+                <div class="error" *ngIf="signUpForm.get('name')?.invalid && signUpForm.get('name')?.touched">
+                    <div *ngIf="signUpForm.get('name')?.errors?.['required']">Name is required.</div>
+                    <div *ngIf="signUpForm.get('name')?.errors?.['pattern']">Name must be 3 to 10 letters long</div>
+                </div>
+    
+                <input type="email" formControlName="email" placeholder="Email" class="input-field">
+                <div class="error" *ngIf="signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched">
+                    <div *ngIf="signUpForm.get('email')?.errors?.['required']">Email is required.</div>
+                    <div *ngIf="signUpForm.get('email')?.errors?.['email']">Invalid email format.</div>
+                </div>
+    
+                <input type="password" formControlName="password" placeholder="Password" class="input-field">
+                <div class="error" *ngIf="signUpForm.get('password')?.invalid && signUpForm.get('password')?.touched">
+                    <div *ngIf="signUpForm.get('password')?.errors?.['required']">Password is required.</div>
+                    <div *ngIf="signUpForm.get('password')?.errors?.['pattern']">Password must be exactly 8 characters long,
+                        and include at least one letter and one number. </div>
+                </div>
+    
+                <input type="password" formControlName="confirmPassword" placeholder="Confirm Password" class="input-field">
+                <div class="error"
+                    *ngIf="signUpForm?.errors?.['PasswordNoMatch'] && signUpForm.get('confirmPassword')?.touched">
+                    <div *ngIf="signUpForm.get('confirmPassword')?.errors?.['required'] else doesNot">Password is required.
+                    </div>
+                    <ng-template #doesNot>
+                        <div>Password does not match.</div>
+                    </ng-template>
+                </div>
+    
+                <div class="button-container">
+                    <button type="submit" [disabled]="signUpForm.invalid" class="register-button">Register</button>
+                    <p class="page-text" routerLink="/login">already have an account ? <span>Login</span>.</p>
+                </div>
+            </div>
+        </form>
+    
+        <!-- /signup-form-template  -->
+    
+    </mat-card>
 </section>

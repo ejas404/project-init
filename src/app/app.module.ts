@@ -3,26 +3,24 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './pages/login/login.component';
-import { SignupComponent } from './pages/signup/signup.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CustomModule } from './modules/custom/custom.module';
-import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthenticationModule } from './modules/auth/authentication.module';
+
 
 @NgModule({
   declarations: [
-    AppComponent,
-    LoginComponent,
-    SignupComponent,
-    AdminDashboardComponent,
-    
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     CustomModule,
-    MatSlideToggleModule
+    AuthenticationModule,
+    MatSlideToggleModule,
+    HttpClientModule
   ],
   providers: [
     provideAnimationsAsync()

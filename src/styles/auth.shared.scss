@@ -1,4 +1,10 @@
-@import "../../../../vars.scss";
+section {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: $primary;
+}
 
 .error{
     color: red;

@@ -9,6 +9,7 @@ export type TableHeaderModel = {
 
 
 export interface UserDetailsTableModel  {
+    _id ?: string
     name : string,
     email : string
     [tBodyKey : string] : string | undefined | null | boolean

@@ -9,15 +9,15 @@ export const removeToken = () => {
     localStorage.removeItem('auth-token')
 }
 
-export const decodeUserToken = (): UserData | false => {
-    const authToken = sessionStorage.getItem('auth_token')
+export const decodeUserToken = (): UserData| false => {
+    const authToken = localStorage.getItem('auth-token')
     if (typeof (authToken) !== 'string') return false;
-    const decodedUser: UserData = (jwtDecode(authToken))
-    return decodedUser;
+    const decodedUser: { user : UserData} = (jwtDecode(authToken))
+    return decodedUser.user;
 }
 
 
-export const isTutorToken = (): boolean => {
+export const isUserToken = (): boolean => {
     const user: UserData | false = decodeUserToken()
     if (!user) return false;
     return user.role === 'User'

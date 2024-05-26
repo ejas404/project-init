@@ -6,9 +6,9 @@ import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CustomModule } from './modules/custom/custom.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthenticationModule } from './modules/auth/authentication.module';
-
+import { AuthTokenInterceptor } from './core/interceptor/auth-token';
 
 @NgModule({
   declarations: [
@@ -23,7 +23,8 @@ import { AuthenticationModule } from './modules/auth/authentication.module';
     HttpClientModule
   ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    { provide: HTTP_INTERCEPTORS, useClass: AuthTokenInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

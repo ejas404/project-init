@@ -1,1 +1,9 @@
-<p>navbar works!</p>
+<mat-toolbar class="navbar">
+    <div>INIT</div>
+    <div class="menus">
+        <ng-template *ngIf="role == 'User'">
+            <span *ngFor="let each of menu" [routerLink]="each.path">{{each.title}}</span>
+        </ng-template>
+        <logout-btn (click)="logout()" ></logout-btn>
+    </div>
+</mat-toolbar>

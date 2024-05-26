@@ -5,6 +5,7 @@ import { SnackbarService } from '../../core/service/shared/snackbar/snackbar.ser
 import { LoginAuth } from '../../core/interfaces/auth.interface';
 import { removeToken, setToken } from '../../core/utils/jwt.helper';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent {
   constructor(
     private authService: AuthService,
-    private snbarService: SnackbarService
+    private snbarService: SnackbarService,
+    private router : Router
   ) { }
 
   loginForm !: FormGroup;
@@ -35,6 +37,11 @@ export class LoginComponent {
       next: (res) => {
         setToken(res.token as string)
         this.snbarService.openSnackBar('login successfully...')
+        if(res.role =="Admin"){
+          this.router.navigateByUrl('/admin')
+        }else{
+          this.router.navigateByUrl('/profile')
+        } 
       },
       error: (err) => {
         removeToken()
@@ -42,5 +49,9 @@ export class LoginComponent {
       }
 
     })
+  }
+
+  ngOnDestroy(){
+
   }
 }

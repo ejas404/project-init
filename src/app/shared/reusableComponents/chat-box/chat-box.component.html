@@ -1,0 +1,23 @@
+<main>
+    <header>
+        <img src="../../../../assets/user/userHead.png" alt="">
+        <div>
+            <h2>Chat with {{receipient.name | titlecase}}</h2>
+        </div>
+    </header>
+    <ul #messageContainer id="chat">
+        <li *ngFor="let each of oldChats; trackBy: trackById" class="{{each.sender == receipient._id ? 'you':'me'}}">
+            <div class="entete">
+                <h2>{{each.sender == receipient._id ? (receipient.name | titlecase) :'You'}}</h2>
+                <h3>{{each.createdAt | dateConvert}}</h3>
+            </div>
+            <div class="triangle"></div>
+            <div class="message">{{each.message}}</div>
+        </li>
+    </ul>
+    <footer>
+        <textarea [(ngModel)]="text" placeholder="Type your message"></textarea>
+        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_picture.png" alt="">
+        <a (click)="send()">Send</a>
+    </footer>
+</main>

@@ -9,14 +9,12 @@ import { CustomModule } from './modules/custom/custom.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthenticationModule } from './modules/auth/authentication.module';
 import { AuthTokenInterceptor } from './core/interceptor/auth-token';
-import { ChatBoxComponent } from './shared/reusableComponents/chat-box/chat-box.component';
 import { SocketIoModule } from 'ngx-socket-io';
 import { socketConfig } from './core/config/socket';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    ChatBoxComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,

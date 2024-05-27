@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../../core/service/auth/auth.service';
 import { UserDetailsTableModel } from '../../../core/interfaces/table.interface';
-import { ChatServiceService } from '../../../core/service/chat/chat-service.service';
-import { Subject, connect, take, takeUntil } from 'rxjs';
+import { Subject,takeUntil } from 'rxjs';
 import { SocketService } from '../../../core/service/socket/socket.service';
-import { UserProfileService } from '../../../core/service/user/user-profile.service';
 
 @Component({
   selector: 'app-profile',
@@ -16,12 +14,10 @@ export class ProfileComponent {
   userList : UserDetailsTableModel [] = [];
   constructor(
     private authService: AuthService,
-    private socketService : SocketService,
-    private userService : UserProfileService
+    private socketService : SocketService
   ) { }
 
   ngOnInit() {
-    this.fetchUserList()
     this.connectSocket()
   }
 
@@ -35,19 +31,7 @@ export class ProfileComponent {
     })
   }
 
-  fetchUserList() {
-    this.userService.getUserList()
-    .pipe(take(1))
-    .subscribe({
-      next : res => {
-        console.log(res);
-        this.userList = res
-      },
-      error : err =>{
-        console.log(err)
-      }
-    })
-  }
+
 
   logout() {
     this.socketService.disconnect()

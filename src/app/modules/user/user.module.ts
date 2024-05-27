@@ -5,6 +5,7 @@ import { ChatComponent } from '../../pages/user/chat/chat.component';
 import { UserDashboardComponent } from '../../pages/user/user-dashboard/user-dashboard.component';
 import { CustomModule } from '../custom/custom.module';
 import { RouterModule } from '@angular/router';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 
 export const routes = [
@@ -23,7 +24,8 @@ export const routes = [
     CommonModule,
     CustomModule,
     RouterModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    MatSidenavModule
   ]
 })
 export class UserModule { }

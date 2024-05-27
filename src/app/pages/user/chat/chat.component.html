@@ -1,1 +1,15 @@
-<p>chat works!</p>
+<section>
+    <mat-sidenav-container>
+        
+        <!-- side bar for listing users in chat  -->
+        <mat-sidenav mode="side" opened >
+            <chat-user-list [chatList]="userList" ></chat-user-list>
+        </mat-sidenav>
+        
+        <!-- main content to show chat box  -->
+        <mat-sidenav-content>
+            <app-chat-box></app-chat-box>
+        </mat-sidenav-content>
+    
+    </mat-sidenav-container>
+</section>

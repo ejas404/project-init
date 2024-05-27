@@ -4,7 +4,7 @@ export const USER_MENU_LIST = [
         title : "Profile"
     },
     {
-        path : '/chat',
+        path : '/profile/chat',
         title : "Chat"
     }
 ]

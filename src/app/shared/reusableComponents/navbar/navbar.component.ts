@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MenuItem } from '../../../core/interfaces/menus';
 import { USER_MENU_LIST } from '../../../core/constant/menu';
 
@@ -8,16 +8,19 @@ import { USER_MENU_LIST } from '../../../core/constant/menu';
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
-  menu !: MenuItem[] ;
-  role !: string;
+  menu !: MenuItem[];
+  @Input() role !: string;
+  @Output() logoutEvent = new EventEmitter();
 
-  @Output() logoutEvent = new EventEmitter()
+  constructor() {
+   
+  }
 
-  constructor(){
+  ngOnInit(){
     this.menu = USER_MENU_LIST
   }
 
-  logout(){
+  logout() {
     this.logoutEvent.emit()
   }
 }

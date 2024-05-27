@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ProfileComponent } from '../../pages/user/profile/profile.component';
 import { ChatComponent } from '../../pages/user/chat/chat.component';
 import { UserDashboardComponent } from '../../pages/user/user-dashboard/user-dashboard.component';
+import { CustomModule } from '../custom/custom.module';
+import { RouterModule } from '@angular/router';
 
 
 export const routes = [
@@ -18,7 +20,10 @@ export const routes = [
     UserDashboardComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    CustomModule,
+    RouterModule,
+    RouterModule.forChild(routes)
   ]
 })
 export class UserModule { }

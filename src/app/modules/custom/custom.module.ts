@@ -11,6 +11,7 @@ import { TableComponent } from '../../shared/reusableComponents/table/table.comp
 import { MatTableModule } from '@angular/material/table';
 import { ChatBoxComponent } from '../../shared/reusableComponents/chat-box/chat-box.component';
 import { ChatUserListComponent } from '../../shared/reusableComponents/chat-user-list/chat-user-list.component';
+import { TimeStampConvertPipe } from '../../shared/pipes/timestamp-convert.pipe';
 
 
 
@@ -21,7 +22,8 @@ import { ChatUserListComponent } from '../../shared/reusableComponents/chat-user
         LogoutBtn,
         TableComponent,
         ChatBoxComponent,
-        ChatUserListComponent
+        ChatUserListComponent,
+        TimeStampConvertPipe
     ],
     imports: [
         CommonModule,

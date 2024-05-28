@@ -1,16 +1,16 @@
-import { Component } from '@angular/core';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle'
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AuthService } from '../../core/service/auth/auth.service';
 import { SnackbarService } from '../../core/service/shared/snackbar/snackbar.service';
-import { LoginAuth } from '../../core/interfaces/auth.interface';
 import { removeToken, setToken } from '../../core/utils/jwt.helper';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
+  changeDetection : ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent {
   constructor(
@@ -33,7 +33,9 @@ export class LoginComponent {
   }
 
   onLogin() {
-    this.authService.login(this.loginForm.value).subscribe({
+    this.authService.login(this.loginForm.value)
+    .pipe(take(1))
+    .subscribe({
       next: (res) => {
         setToken(res.token as string)
         this.snbarService.openSnackBar('login successfully...')
@@ -51,7 +53,4 @@ export class LoginComponent {
     })
   }
 
-  ngOnDestroy(){
-
-  }
 }

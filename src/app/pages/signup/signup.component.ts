@@ -1,14 +1,16 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { AuthService } from '../../core/service/auth/auth.service';
 import { SnackbarService } from '../../core/service/shared/snackbar/snackbar.service';
 import { Router } from '@angular/router';
-import { confirmPasswordValidator } from '../../core/utils/confirmPasswordValidator';
+import { confirmPasswordValidator } from '../../core/utils/confirm-validator-helper';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrl: './signup.component.scss'
+  styleUrl: './signup.component.scss',
+  changeDetection : ChangeDetectionStrategy.OnPush
 })
 export class SignupComponent {
   constructor(
@@ -38,7 +40,9 @@ export class SignupComponent {
   }
 
   onSignUp() { 
-    this.authService.signUp(this.signUpForm.value).subscribe({
+    this.authService.signUp(this.signUpForm.value)
+    .pipe(take(1))
+    .subscribe({
       next : (res)=>{
         if(res.success){
           this.snbarService.openSnackBar(res.msg)

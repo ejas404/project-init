@@ -6,6 +6,7 @@ import { UserDashboardComponent } from '../../pages/user/user-dashboard/user-das
 import { CustomModule } from '../custom/custom.module';
 import { RouterModule } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatCardModule } from '@angular/material/card';
 
 
 export const routes = [
@@ -25,7 +26,8 @@ export const routes = [
     CustomModule,
     RouterModule,
     RouterModule.forChild(routes),
-    MatSidenavModule
+    MatSidenavModule,
+    MatCardModule
   ]
 })
 export class UserModule { }

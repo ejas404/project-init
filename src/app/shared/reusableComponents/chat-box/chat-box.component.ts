@@ -5,6 +5,8 @@ import { decodeUserToken } from '../../../core/utils/jwt.helper';
 import { ResponseMessage, SendMessageType } from '../../../core/interfaces/chat.interface';
 import { ChatServiceService } from '../../../core/service/chat/chat-service.service';
 import { UserProfileService } from '../../../core/service/user/user-profile.service';
+import { generateImagePreview, isImageFile } from '../../../core/utils/file-check.helper';
+import { SnackbarService } from '../../../core/service/shared/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-chat-box',
@@ -13,17 +15,20 @@ import { UserProfileService } from '../../../core/service/user/user-profile.serv
 })
 export class ChatBoxComponent {
 
-  @Input() receipient !: UserDetailsTableModel;
+  text: string | null = null;
+  isImgSelect: boolean = false;
+  imagePreview !: ArrayBuffer;
   userData !: UserDetailsTableModel;
-  oldChats : ResponseMessage [] = []
-  text : string | null = null;
-  @ViewChild('messageContainer',{static : false})messageContainer !: ElementRef;
+  oldChats: ResponseMessage[] = []
+  @Input() receipient !: UserDetailsTableModel;
+  @ViewChild('messageContainer', { static: false }) messageContainer !: ElementRef;
 
 
   constructor(
     private chatCommunicate: ChatBoxCommunicateService,
     private chatService: ChatServiceService,
-    private profileService : UserProfileService
+    private profileService: UserProfileService,
+    private sanckBar: SnackbarService
   ) { }
 
   ngOnInit() {
@@ -42,10 +47,10 @@ export class ChatBoxComponent {
     })
   }
 
-  getOldMessages(){
+  getOldMessages() {
     if (this.receipient._id == '' || !this.receipient._id) return;
     this.profileService.getOldChats(this.receipient._id).subscribe({
-      next : res => {
+      next: res => {
         this.oldChats = res;
         this.scrollToBottom()
       }
@@ -66,10 +71,10 @@ export class ChatBoxComponent {
   }
 
   addChat() {
-    const newChat : ResponseMessage = {
+    const newChat: ResponseMessage = {
       _id: (this.oldChats.length + 1).toString(),
       receiver: this.receipient._id as string,
-      sender : this.userData._id as string,
+      sender: this.userData._id as string,
       message: this.text as string,
       createdAt: new Date().toISOString(),
       contentType: "TEXT"
@@ -78,7 +83,7 @@ export class ChatBoxComponent {
     this.scrollToBottom()
   }
 
-  trackById(ndex: number, chat: ResponseMessage){
+  trackById(ndex: number, chat: ResponseMessage) {
     return chat._id;
   }
 
@@ -93,8 +98,34 @@ export class ChatBoxComponent {
 
   scrollToBottom(): void {
     setTimeout(() => {
-      this.messageContainer.nativeElement.scrollTop = this.messageContainer.nativeElement.scrollHeight ;
-    }, 200);   
+      this.messageContainer.nativeElement.scrollTop = this.messageContainer.nativeElement.scrollHeight;
+    }, 200);
+  }
+
+  imageSelect() {
+    this.isImgSelect = !this.isImgSelect;
+  }
+
+  onSelect(event: Event) {
+    const input = event.target as HTMLInputElement;
+
+    if (input.files && input.files.length) {
+      const file = input.files[0];
+
+      // Checking the file type is it image
+      if (isImageFile(file)) {
+        //generates previewable image from the file
+        generateImagePreview(file).subscribe({
+          next: result => this.imagePreview = result as ArrayBuffer,
+          error: error => {
+            this.sanckBar.openSnackBar('Error generating image preview:')
+            console.error('Error generating image preview:', error)
+          }
+        });
+      } else {
+        this.sanckBar.openSnackBar('Selected file is not an image.')
+      }
+    }
   }
 
 }

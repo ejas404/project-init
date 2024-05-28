@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AuthService } from '../../../core/service/auth/auth.service';
 import { UserDetailsTableModel } from '../../../core/interfaces/table.interface';
 import { Subject,takeUntil } from 'rxjs';
@@ -7,7 +7,8 @@ import { SocketService } from '../../../core/service/socket/socket.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.scss'
+  styleUrl: './profile.component.scss',
+  changeDetection : ChangeDetectionStrategy.OnPush
 })
 export class ProfileComponent {
   destroy$ = new Subject<void>()
@@ -30,8 +31,6 @@ export class ProfileComponent {
       }
     })
   }
-
-
 
   logout() {
     this.socketService.disconnect()

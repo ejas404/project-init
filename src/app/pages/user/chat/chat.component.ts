@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { UserDetailsTableModel } from '../../../core/interfaces/table.interface';
 import { UserProfileService } from '../../../core/service/user/user-profile.service';
 import { take } from 'rxjs';
@@ -6,7 +6,8 @@ import { take } from 'rxjs';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
-  styleUrl: './chat.component.scss'
+  styleUrl: './chat.component.scss',
+  changeDetection : ChangeDetectionStrategy.OnPush
 })
 export class ChatComponent {
 

@@ -16,3 +16,9 @@ export interface SignUpAuth{
     email : string,
     password : string
 }
+
+export interface UserDataResponse{
+    _id ?: string
+    name : string,
+    email : string
+}

@@ -1,4 +1,4 @@
-import { UserData } from "./auth.interface"
+import { UserDataResponse } from "./auth.interface"
 
 export type TableHeaderModel = {
     title : string,
@@ -8,9 +8,6 @@ export type TableHeaderModel = {
 
 
 
-export interface UserDetailsTableModel  {
-    _id ?: string
-    name : string,
-    email : string
+export interface UserDetailsTableModel extends UserDataResponse {
     [tBodyKey : string] : string | undefined | null | boolean
 }

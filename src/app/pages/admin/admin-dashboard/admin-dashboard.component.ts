@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AuthService } from '../../../core/service/auth/auth.service';
-import { AdminDashboardService } from '../../../core/service/admin/admin.dash.service';
+import { AdminDashboardService } from '../../../core/service/admin/admin-dash.service';
 import { TableHeaderModel, UserDetailsTableModel } from '../../../core/interfaces/table.interface';
 import { ADMIN_TABLE_HEADERS } from '../../../core/constant/table';
 import { take } from 'rxjs';

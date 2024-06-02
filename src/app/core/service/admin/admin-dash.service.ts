@@ -7,7 +7,10 @@ import { UserDetailsTableModel } from "../../interfaces/table.interface";
 export class AdminDashboardService {
     constructor(
         private http: HttpClient,
-    ) { }
+    ) { 
+
+        console.log('admin dahsboard servide loaded')
+    }
 
     getUserList() {
         return this.http.get<UserDetailsTableModel[]>(`${environment.API_URL}/admin/users`)

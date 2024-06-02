@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { UserDetailsTableModel } from '../../../core/interfaces/table.interface';
 import { ChatBoxCommunicateService } from '../../../core/service/chat/chat-box-communicate.service';
+import { take } from 'rxjs';
+import { UserProfileService } from '../../../core/service/user/user-profile.service';
 
 @Component({
   selector: 'chat-user-list',
@@ -13,6 +15,8 @@ export class ChatUserListComponent {
   constructor(
     private chatCommunicate: ChatBoxCommunicateService
   ) { }
+
+  ngOnInit(){}
 
   changeUser(id: string | undefined) {
     if (!id) return;

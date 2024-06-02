@@ -7,6 +7,7 @@ import { CustomModule } from '../custom/custom.module';
 import { RouterModule } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCardModule } from '@angular/material/card';
+import { UserProfileService } from '../../core/service/user/user-profile.service';
 
 
 export const routes = [
@@ -28,6 +29,7 @@ export const routes = [
     RouterModule.forChild(routes),
     MatSidenavModule,
     MatCardModule
-  ]
+  ],
+  providers : [UserProfileService]
 })
 export class UserModule { }

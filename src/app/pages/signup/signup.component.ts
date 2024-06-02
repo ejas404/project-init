@@ -9,8 +9,7 @@ import { take } from 'rxjs';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrl: './signup.component.scss',
-  changeDetection : ChangeDetectionStrategy.OnPush
+  styleUrl: './signup.component.scss'
 })
 export class SignupComponent {
   constructor(

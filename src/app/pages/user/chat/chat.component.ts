@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { UserDetailsTableModel } from '../../../core/interfaces/table.interface';
 import { UserProfileService } from '../../../core/service/user/user-profile.service';
-import { take } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 
 @Component({
   selector: 'app-chat',
@@ -12,8 +12,10 @@ import { take } from 'rxjs';
 export class ChatComponent {
 
   userList : UserDetailsTableModel [] = [];
+  destroy$ !: Subscription;
   constructor(
-    private userService : UserProfileService
+    private userService : UserProfileService,
+    private cd : ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -22,16 +24,20 @@ export class ChatComponent {
 
 
   fetchUserList() {
-    this.userService.getUserList()
-    .pipe(take(1))
+    this.destroy$ = this.userService.getUserList()
     .subscribe({
       next : res => {
         this.userList = res
+        this.cd.markForCheck()
       },
       error : err =>{
         console.log(err)
       }
     })
+  }
+
+  ngOnDestroy(){
+    this.destroy$.unsubscribe()
   }
 
 }

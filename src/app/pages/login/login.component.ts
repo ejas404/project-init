@@ -9,8 +9,7 @@ import { take } from 'rxjs';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
-  changeDetection : ChangeDetectionStrategy.OnPush
+  styleUrl: './login.component.scss'
 })
 export class LoginComponent {
   constructor(

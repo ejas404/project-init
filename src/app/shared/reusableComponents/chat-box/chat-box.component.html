@@ -2,16 +2,16 @@
     <header>
         <img src="../../../../assets/user/userHead.png" alt="">
         <div>
-            <h2 *ngIf="receipient.name === '';else title">Select a person to chat</h2>
+            <h2 *ngIf="receipient?.name === '';else title">Select a person to chat</h2>
             <ng-template #title>
-                <h2>Chat with {{receipient.name | titlecase}}</h2>
+                <h2>Chat with {{receipient?.name | titlecase}}</h2>
             </ng-template>
         </div>
     </header>
     <ul *ngIf="!isImgSelect" #messageContainer id="chat">
-        <li *ngFor="let each of oldChats; trackBy: trackById" class="{{each.sender == receipient._id ? 'you':'me'}}">
+        <li *ngFor="let each of oldChats; trackBy: trackById" class="{{each.sender == receipient?._id ? 'you':'me'}}">
             <div class="entete">
-                <h2>{{each.sender == receipient._id ? (receipient.name | titlecase) :'You'}}</h2>
+                <h2>{{each.sender == receipient?._id ? (receipient?.name | titlecase) :'You'}}</h2>
                 <h3>{{each.createdAt | dateConvert}}</h3>
             </div>
             <div class="triangle"></div>

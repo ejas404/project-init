@@ -3,10 +3,9 @@ import { Injectable } from '@angular/core';
 import { UserDetailsTableModel } from '../../interfaces/table.interface';
 import { environment } from '../../../../environments/environment.development';
 import { ResponseMessage } from '../../interfaces/chat.interface';
+import { UserModule } from '../../../modules/user/user.module';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class UserProfileService {
 
   constructor(

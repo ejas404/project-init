@@ -14,13 +14,15 @@ const routes: Routes = [
     path: "profile",
     component: ProfileComponent,
     canActivate : [authGuard],
-    loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule)
+    loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule),
+    title : 'profile'
   },
   {
     path: "admin",
     component: AdminDashboardComponent,
     canActivate : [adminGuard],
-    loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule)
+    loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule),
+    title : 'dashboard'
   },
   { path: "", redirectTo: "login", pathMatch: "full" }
 ];
